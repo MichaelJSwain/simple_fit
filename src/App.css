@@ -1,0 +1,110 @@
+/* #root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+} */
+
+/* START SCREEN START */
+  .startScreen {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: #fe7000;
+  }
+
+  .startScreen_textContainer {
+    text-align: center;
+    margin: 0 20px;
+  }
+
+  .primaryCta {
+    background: #6131AD;
+    border-radius: 0;
+    font-weight: bold;
+    text-transform: uppercase;
+    min-width: 128px;
+    max-width: 343px;
+    height: 48px;
+  }
+
+
+  .modalContainer {
+    position: absolute;
+    height: 100vh;
+    width: 100vw;
+    top: 100%;
+    background: white;
+    transition: 0.3s top ease;
+  }
+
+  .active {
+    top: 0;
+  }
+
+/* START SCREEN END */
+
+/* FORM START */
+.formContainer {
+  margin: 20px;
+}
+.form {
+  display: flex;
+  flex-direction: column;
+}
+.formSection {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 18px;
+}
+.formLabel {
+  color: black;
+  margin-bottom: 5px;
+}
+.formInput {
+  height: 46px;
+  background: none;
+  border: 1px solid grey;
+  color: black;
+  padding: 0 10px;
+}
+/* FORM END */
+
+.logo {
+  height: 6em;
+  padding: 1.5em;
+  will-change: filter;
+  transition: filter 300ms;
+}
+.logo:hover {
+  filter: drop-shadow(0 0 2em #646cffaa);
+}
+.logo.react:hover {
+  filter: drop-shadow(0 0 2em #61dafbaa);
+}
+
+@keyframes logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  a:nth-of-type(2) .logo {
+    animation: logo-spin infinite 20s linear;
+  }
+}
+
+.card {
+  padding: 2em;
+}
+
+.read-the-docs {
+  color: #888;
+}
