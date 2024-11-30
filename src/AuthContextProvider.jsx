@@ -16,11 +16,11 @@ const AuthContextProvider = ({children}) => {
                 setUser(response.data);
               })
               .catch(function (error) {
-                handleError(true);
+                // handleError(true);
               });
     };
 
-    const register = (email, password) => {
+    const register = (email, password, handleError) => {
         console.log("registering user...");
         axios.post('http://localhost:8080/exerciseApp/api/user/register', {
             username: email,
@@ -30,7 +30,7 @@ const AuthContextProvider = ({children}) => {
             setUser(response.data);
           })
           .catch(function (error) {
-            handleError(true);
+            // handleError(true);
           });
     };
 

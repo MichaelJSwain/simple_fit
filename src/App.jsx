@@ -5,6 +5,7 @@ import RegisterForm from './RegisterForm.jsx';
 import axios from 'axios';
 import StartScreen from './components/StartScreen.jsx';
 import AuthContextProvider, { AuthContext } from './AuthContextProvider.jsx';
+import WorkoutListView from './components/WorkoutListView.jsx';
 
 function App() {
   const [modalActive, setModalActive] = useState(false);
@@ -47,7 +48,7 @@ function App() {
 
   return (
 <>
-      {authContext.user ? <h1>user logged in</h1> : <StartScreen></StartScreen>}
+      {authContext.user ? <WorkoutListView/> : <StartScreen></StartScreen>}
       </>
     
   )
