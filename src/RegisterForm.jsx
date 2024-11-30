@@ -1,13 +1,14 @@
-import { useState } from "react"
+import { useContext, useState } from "react"
 import axios from "axios";
+import { AuthContext } from "./AuthContextProvider";
 
 const RegisterForm = ({toggleModal}) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-
     const [generalError, setGeneralError] = useState(false);
     const [emailError, setEmailError] = useState(false);
     const [passwordError, setPasswordError] = useState(false);
+    const authContext = useContext(AuthContext);
 
     const handleChange = (e) => {
         if (e.target.name === "email") {
@@ -27,29 +28,14 @@ const RegisterForm = ({toggleModal}) => {
         setPasswordError(false);
         e.preventDefault();
 
-        console.log("handling Register");
         if (!email) {
-          console.log("Please enter an email");
           setEmailError(true);
         }
         if (!password) {
-          console.log("Please enter your password");
           setPasswordError(true);
         }
         if (email && password) {
-          axios.post('http://localhost:8080/exerciseApp/api/user/register', {
-            username: email,
-            password: password
-          })
-          .then(function (response) {
-            console.log(response);
-            toggleModal(false);
-          })
-          .catch(function (error) {
-            console.log(error);
-            console.log("invalid email or password");
-            setGeneralError(true);
-          });
+          authContext.register(email, password, setGeneralError);
         }
   }
     
@@ -59,10 +45,12 @@ const RegisterForm = ({toggleModal}) => {
               <div className='formSection'>
                 <label className='formLabel' htmlFor="email">E-mail:</label>
                 <input className='formInput' id="email" name="email" onChange={handleChange} value={email}></input>
+                {emailError && <h4 style={{color: 'red'}}>Please type a valid email</h4>}
               </div>
               <div className='formSection'>
                 <label className='formLabel' htmlFor="password">Password:</label>
                 <input className='formInput' id="password" name="password" onChange={handleChange} value={password}></input>
+                {passwordError && <h4 style={{color: 'red'}}>Please type your password</h4>}
               </div>
               <button className='primaryCta'>Register</button>
             </form>

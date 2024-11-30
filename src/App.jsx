@@ -1,13 +1,17 @@
-import { useState } from 'react'
+import { useContext, useState } from 'react'
 import './App.css'
 import LoginForm from './LoginForm.jsx';
 import RegisterForm from './RegisterForm.jsx';
 import axios from 'axios';
+import StartScreen from './components/StartScreen.jsx';
+import AuthContextProvider, { AuthContext } from './AuthContextProvider.jsx';
 
 function App() {
   const [modalActive, setModalActive] = useState(false);
-
   const [currentForm, setCurrentForm] = useState('login');
+  const [user, setUser] = useState();
+  const authContext = useContext(AuthContext);
+  console.log(authContext);
 
   const handleLogin = (email, password) => {
     console.log("handling login");
@@ -25,6 +29,9 @@ function App() {
       .then(function (response) {
         console.log(response);
         setModalActive(false);
+        setUser({
+          username: 'dave'
+        })
       })
       .catch(function (error) {
         console.log(error);
@@ -39,35 +46,10 @@ function App() {
   }
 
   return (
-    <>
-      <div className='startScreen'>
-        <div className='startScreen_textContainer'>
-          <h1>SIMPLE-FIT</h1>
-          <button className='primaryCta' onClick={() => {setModalActive(!modalActive)}}>Login</button>
-        </div>
-      </div>
-
-      <div className={modalActive ? 'modalContainer active' : 'modalContainer'}>
-        <button onClick={() => {setModalActive(!modalActive)}}>X</button>
-
-
-        <div className='formContainer'>
-          
-          {currentForm === "login" ? (
-            <>
-              <LoginForm toggleModal={setModalActive}/>
-              <button onClick={() => setCurrentForm('register')}>Register</button>
-            </>
-          ) : (
-            <>
-              <RegisterForm toggleModal={setModalActive}/>
-              <button onClick={() => setCurrentForm('login')}>Login</button>
-            </>
-          )}
-          
-        </div>
-      </div>
-    </>
+<>
+      {authContext.user ? <h1>user logged in</h1> : <StartScreen></StartScreen>}
+      </>
+    
   )
 }
 

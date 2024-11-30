@@ -1,13 +1,14 @@
-import { useState } from "react"
+import { useContext, useState } from "react"
 import axios from "axios";
+import { AuthContext } from "./AuthContextProvider";
 
-const LoginForm = ({toggleModal}) => {
+const LoginForm = ({toggleModal, setUser}) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-
     const [generalError, setGeneralError] = useState(false);
     const [emailError, setEmailError] = useState(false);
     const [passwordError, setPasswordError] = useState(false);
+    const authContext = useContext(AuthContext);
 
     const handleChange = (e) => {
         if (e.target.name === "email") {
@@ -27,29 +28,15 @@ const LoginForm = ({toggleModal}) => {
             setPasswordError(false);
             e.preventDefault();
 
-            console.log("handling login");
+            authContext.login();
             if (!email) {
-              console.log("Please enter an email");
               setEmailError(true);
             }
             if (!password) {
-              console.log("Please enter your password");
               setPasswordError(true);
             }
             if (email && password) {
-              axios.post('http://localhost:8080/exerciseApp/api/user/login', {
-                username: email,
-                password: password
-              })
-              .then(function (response) {
-                console.log(response);
-                toggleModal(false);
-              })
-              .catch(function (error) {
-                console.log(error);
-                console.log("invalid email or password");
-                setGeneralError(true);
-              });
+              authContext.login(email, password, setGeneralError);
             }
       }
     
