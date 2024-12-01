@@ -6,6 +6,7 @@ import axios from 'axios';
 import StartScreen from './components/StartScreen.jsx';
 import AuthContextProvider, { AuthContext } from './AuthContextProvider.jsx';
 import WorkoutListView from './components/WorkoutListView.jsx';
+import Navbar from './components/Navbar.jsx';
 
 function App() {
   const [modalActive, setModalActive] = useState(false);
@@ -47,7 +48,12 @@ function App() {
 
   return (
       <div className='app'>
-      {authContext.user ? <WorkoutListView/> : <StartScreen></StartScreen>}
+        {authContext.user ? 
+        <div style={{background: 'white', color: 'black'}}>
+          <Navbar />
+          <WorkoutListView/>
+        </div> : 
+        <StartScreen></StartScreen>}
       </div>
     
   )

@@ -3,6 +3,17 @@
   width: 100vw;
 }
 
+/* NAVBAR START */
+.Navbar {
+  display: flex;
+  justify-content: center;
+}
+
+.Logo {
+  width: fit-content;
+}
+/* NAVBAR END */
+
 /* START SCREEN START */
   .startScreen {
     width: 100vw;
@@ -70,6 +81,16 @@
   padding: 0 10px;
 }
 /* FORM END */
+
+/* WorkoutListView start */
+.WorkoutListView {
+  padding: 20px;
+}
+/* WorkoutListView end */
+
+/* TYPOGRAPHY START */
+
+/* TYPOGRAPHY END */
 
 .logo {
   height: 6em;
