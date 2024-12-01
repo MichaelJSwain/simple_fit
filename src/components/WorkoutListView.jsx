@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import LoadingView from "./LoadingView";
-import WorkoutListItem from "./WorkoutListItem";
+import WorkoutList from "./WorkoutList";
 
 const WorkoutListView = () => {
     const [workoutList, setWorkoutList] = useState([]);
@@ -26,15 +26,11 @@ const WorkoutListView = () => {
     }, []);
 
     return (
-        <>
+        <div className="WorkoutListView">
         <h1>Workout list view</h1>
         {isLoading && <LoadingView/>}
-        {workoutList.length &&
-            workoutList.map(workout => {
-                return <WorkoutListItem key={workout._id} workout={workout}/>
-            })
-        }
-        </>
+        {workoutList.length && <WorkoutList workoutList={workoutList}/>}
+        </div>
     )
 };
 

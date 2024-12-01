@@ -10,7 +10,6 @@ import WorkoutListView from './components/WorkoutListView.jsx';
 function App() {
   const [modalActive, setModalActive] = useState(false);
   const [currentForm, setCurrentForm] = useState('login');
-  const [user, setUser] = useState();
   const authContext = useContext(AuthContext);
   console.log(authContext);
 
@@ -47,9 +46,9 @@ function App() {
   }
 
   return (
-<>
+      <div className='app'>
       {authContext.user ? <WorkoutListView/> : <StartScreen></StartScreen>}
-      </>
+      </div>
     
   )
 }
