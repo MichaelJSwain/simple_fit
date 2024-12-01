@@ -4,7 +4,7 @@ import { createContext, useState } from "react";
 export const AuthContext = createContext();
 
 const AuthContextProvider = ({children}) => {
-    const [user, setUser] = useState(true);
+    const [user, setUser] = useState(undefined);
 
     const login = (email, password, handleError) => {
         console.log("logging in via auth context");

@@ -27,7 +27,9 @@ const WorkoutListView = () => {
 
     return (
         <div className="WorkoutListView">
-            <h1 className="PageTitle">Workouts</h1>
+            <div className="PageTitle_container" style={{margin: '10px'}}>
+                <h1 className="PageTitle" style={{margin: '0', fontSize: '32px'}}>Workouts</h1>
+            </div>
             <button className="Button-Secondary">Filter</button>
             {isLoading && <LoadingView/>}
             {workoutList.length && <WorkoutList workoutList={workoutList}/>}
