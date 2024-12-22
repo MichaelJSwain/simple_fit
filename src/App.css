@@ -18,6 +18,8 @@
   .startScreen {
     width: 100vw;
     height: 100vh;
+    position: relative;
+    overflow: hidden;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -42,7 +44,7 @@
 
 
   .modalContainer {
-    position: absolute;
+    position: fixed;
     height: 100vh;
     width: 100vw;
     top: 100%;
@@ -55,6 +57,13 @@
   }
 
 /* START SCREEN END */
+
+/* WORKOUT LIST VIEW START */
+.WorkoutListView {
+  height: 100vh;
+  position: relative;
+}
+/* WORKOUT LIST VIEW END */
 
 /* FORM START */
 .formContainer {

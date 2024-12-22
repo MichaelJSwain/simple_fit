@@ -15,13 +15,13 @@ const StartScreen = () => {
     return (
         <>
         <div className='startScreen'>
-          <div className='startScreen_textContainer'>
-            <h1 onClick={authContext.login}>SIMPLE-FIT</h1>
-            <button className='primaryCta' onClick={() => {setModalActive(!modalActive)}}>Login</button>
+          <div className='screen_content_container'>
+            <div className='startScreen_textContainer'>
+              <h1 onClick={authContext.login}>SIMPLE-FIT</h1>
+              <button className='primaryCta' onClick={() => {setModalActive(!modalActive)}}>Login</button>
+            </div>
           </div>
-        </div>
-  
-        <div className={modalActive ? 'modalContainer active' : 'modalContainer'}>
+          <div className={modalActive ? 'modalContainer active' : 'modalContainer'}>
           <button onClick={() => {setModalActive(!modalActive)}}>X</button>
   
   
@@ -41,6 +41,9 @@ const StartScreen = () => {
             
           </div>
         </div>
+        </div>
+  
+
       </>
     )
 }

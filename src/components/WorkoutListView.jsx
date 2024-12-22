@@ -5,6 +5,7 @@ import WorkoutList from "./WorkoutList";
 import WorkoutListFilters from "./WorkoutListFilters";
 
 const WorkoutListView = () => {
+    const [modalActive, setModalActive] = useState(false); 
     const [workoutList, setWorkoutList] = useState([]);
     const [filtersApplied, setFiltersApplied] = useState([]);
     const [filteredWorkouts, setFilteredWorkouts] = useState([]);
@@ -87,13 +88,21 @@ const WorkoutListView = () => {
 
     return (
         <div className="WorkoutListView">
+            <div className="screen_content_container">
             <div className="PageTitle_container" style={{margin: '10px'}}>
                 <h1 className="PageTitle" style={{margin: '0', fontSize: '32px'}}>Workouts</h1>
             </div>
-            <button className="Button-Secondary">Filter</button>
-            <WorkoutListFilters filterFunc={handleFilter}/>
+            <button className="Button-Secondary" onClick={() => setModalActive(!modalActive)}>Filter</button>
+            
+            
             {isLoading && <LoadingView/>}
             {workoutList.length && <WorkoutList workoutList={filteredWorkouts} filters={filtersApplied}/>}
+            </div>
+            <div className={modalActive ? 'modalContainer active' : 'modalContainer'}>
+          <button onClick={() => {setModalActive(!modalActive)}}>X</button>
+          <WorkoutListFilters filterFunc={handleFilter}/>
+          <button className='primaryCta' onClick={() => setModalActive(!modalActive)}>See {filteredWorkouts.length} results</button>
+        </div>
         </div>
     )
 };
