@@ -6,11 +6,9 @@ import WorkoutListFilters from "./WorkoutListFilters";
 
 const WorkoutListView = () => {
     const [workoutList, setWorkoutList] = useState([]);
-    const [filters, setFilters] = useState([]);
+    const [filtersApplied, setFiltersApplied] = useState([]);
     const [filteredWorkouts, setFilteredWorkouts] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
-
-    console.log("filters = ", filters);
 
     const fetchWorkouts = () => {
         axios.get("http://localhost:8080/exerciseApp/api/workouts")
@@ -32,33 +30,39 @@ const WorkoutListView = () => {
 
     useEffect(() => {
         filterWorkouts();
-    }, [filters]);
+    }, [filtersApplied]);
 
     const filterWorkouts = () => {
         console.log("filtering workouts");
+        if (!filtersApplied.length) {
+            setFilteredWorkouts(workoutList)
+            return;
+        }
+        const filtersArray = [];
+        const filteredWorkouts = filtersApplied.length ? [] : workoutList;
 
-        const filtered = filters.length ? [] : workoutList;
-        const filteredWorkouts = filters.length ? [] : workoutList;;
-
-        filters.forEach(f => {
+        filtersApplied.forEach(f => {
             console.log(f)
             const [category, value]  = f.split("_");
             const parsedValue = value.split("-").join(" ")
-            filtered[category] = filtered[category] || [];
-            filtered[category].push(parsedValue);
+            filtersArray[category] = filtersArray[category] || [];
+            filtersArray[category].push(parsedValue);
         })
 
-        const filteredKeys = Object.keys(filtered);
-        console.log("FILTERED KEYS = ", filteredKeys);
+        const filteredKeys = Object.keys(filtersArray);
+        console.log(filteredKeys);
+        console.log("filters arr = ", filtersArray);
 
         workoutList.forEach(workout => {
             let isMatch = [];
-
+   
             filteredKeys.forEach(key => {
-                if (filtered[key].includes(workout[key].toLowerCase())) {
-                    isMatch.push(true);
-                } else {
-                    isMatch.push(false);
+                if (workout[key]) {
+                    if (filtersArray[key].some(f => `${workout[key]}`.toLowerCase().includes(f))) {
+                        isMatch.push(true);
+                    } else {
+                        isMatch.push(false);
+                    }
                 }
             })
 
@@ -66,19 +70,19 @@ const WorkoutListView = () => {
                 filteredWorkouts.push(workout);
             }
         })
-        console.log("filtered worouts = ", filteredWorkouts);
-        setFilteredWorkouts(filteredWorkouts)
+        setFilteredWorkouts(filteredWorkouts);
     };
 
     const handleFilter = (filter) => {
-        const filterIndex = filters.indexOf(filter);
-        let updatedFilters = [...filters];
+        console.log(filter);
+        const filterIndex = filtersApplied.indexOf(filter);
+        let updatedFilters = [...filtersApplied];
         if (filterIndex > -1) {
             updatedFilters.splice(filterIndex, 1);
         } else {
             updatedFilters.push(filter);
         }
-        setFilters(updatedFilters);
+        setFiltersApplied(updatedFilters);
     }
 
     return (
@@ -89,7 +93,7 @@ const WorkoutListView = () => {
             <button className="Button-Secondary">Filter</button>
             <WorkoutListFilters filterFunc={handleFilter}/>
             {isLoading && <LoadingView/>}
-            {workoutList.length && <WorkoutList workoutList={filteredWorkouts} filters={filters}/>}
+            {workoutList.length && <WorkoutList workoutList={filteredWorkouts} filters={filtersApplied}/>}
         </div>
     )
 };
