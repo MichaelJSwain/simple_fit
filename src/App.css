@@ -48,6 +48,8 @@
     height: 100vh;
     width: 100vw;
     top: 100%;
+   
+    left: 0;
     background: white;
     transition: 0.3s top ease;
   }
@@ -98,8 +100,37 @@
 /* WorkoutListView end */
 
 /* TYPOGRAPHY START */
-
+.text_centered {
+  text-align: center;
+}
 /* TYPOGRAPHY END */
+
+/* FILTERS START */
+.filters_content_container {
+  height: 100%;
+  overflow: scroll;
+  padding: 20px;
+}
+.filters_button_container {
+  position: absolute;
+  bottom: 0;
+  padding: 15px 20px;
+  background: white;
+  width: calc(100% - 40px);
+}
+.filters_button_container .primaryCta {
+  width: 100%;
+}
+
+.filter_item {
+  background: lightgray;
+  font-weight: bold;
+}
+.filter_active {
+  background: orange;
+  color: white;
+}
+/* FILTERS END */
 
 .logo {
   height: 6em;

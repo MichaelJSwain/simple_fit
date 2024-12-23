@@ -22,6 +22,7 @@ const StartScreen = () => {
             </div>
           </div>
           <div className={modalActive ? 'modalContainer active' : 'modalContainer'}>
+            <div>
           <button onClick={() => {setModalActive(!modalActive)}}>X</button>
   
   
@@ -39,6 +40,7 @@ const StartScreen = () => {
               </>
             )}
             
+          </div>
           </div>
         </div>
         </div>

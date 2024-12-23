@@ -1,7 +1,96 @@
 import { useState } from "react";
 
-const WorkoutListFilters = ({filterFunc}) => {
+const WorkoutListFilters = ({filterFunc, filtersApplied}) => {
     const [checked, setChecked] = useState(false);
+    const filters = [ 
+            {
+            category: "Difficulty",
+            filters: [
+                {
+                    label: "Beginner",
+                    id: "difficulty_beginner",
+                    name: "Beginner"
+                },
+                {
+                    label: "Intermediate",
+                    id: "difficulty_intermediate",
+                    name: "Intermediate"
+                },
+                {
+                    label: "Advanced",
+                    id: "difficulty_advanced",
+                    name: "Advanced"
+                }     
+            ]
+        },
+        {
+            category: "Equipment",
+            filters: [
+                {
+                    label: "No equipment",
+                    id: "equipment_no-equipment",
+                    name: "No equipment"
+                },
+                {
+                    label: "Club apparatus",
+                    id: "equipment_club-apparatus",
+                    name: "Club apparatus"
+                } 
+            ]
+        },
+        {
+            category: "Goal",
+            filters: [
+                {
+                    label: "Shape & tone",
+                    id: "goals_shape-&-tone",
+                    name: "Shape & tone"
+                },
+                {
+                    label: "Weight loss",
+                    id: "goals_weight-loss",
+                    name: "Weight loss"
+                },
+                {
+                    label: "Muscle building",
+                    id: "goals_muscle-building",
+                    name: "Muscle building"
+                },
+                {
+                    label: "Get fitter",
+                    id: "goals_get-fitter",
+                    name: "Get fitter"
+                },
+                {
+                    label: "Improve performance",
+                    id: "goals_improve-performance",
+                    name: "Improve performance"
+                }
+            ]
+        },
+        {
+            category: "Format",
+            filters: [
+                {
+                    label: "Individual workout",
+                    id: "format_individual-workout",
+                    name: "Individual workout"
+                },
+                {
+                    label: "Video-workout",
+                    id: "format_video-workout",
+                    name: "Video-workout"
+                },
+                {
+                    label: "Audio-workout",
+                    id: "format_audio-workout",
+                    name: "Audio-workout"
+                } 
+            ]
+        }
+    ];
+    
+    console.log("filters passed to WorkouteLister => ", filtersApplied);
 
     const handleChange = (e) => {
         console.log(e.target.id)
@@ -11,86 +100,20 @@ const WorkoutListFilters = ({filterFunc}) => {
 
     return (
         <>
-        <div>
-            <h3>Level</h3>
-            <ul>
-                <li>
-                    <div>
-                        <input type="checkbox" defaultChecked={checked} onChange={handleChange} id="difficulty_beginner" name="beginner" />
-                        <span>Beginner</span>
-                    </div>
-                    <div>
-                        <input type="checkbox" defaultChecked={checked} onChange={handleChange} id="difficulty_intermediate" name="intermediate" />
-                        <span>Intermediate</span>
-                    </div>
-                    <div>
-                        <input type="checkbox" defaultChecked={checked} onChange={handleChange} id="difficulty_advanced" name="intermediate" />
-                        <span>Advanced</span>
-                    </div>
-                </li>
-            </ul>
-        </div>
-        <div>
-            <h3>Equipment</h3>
-            <ul>
-                <li>
-                    <div>
-                        <input type="checkbox" defaultChecked={checked} onChange={handleChange} id="equipment_no-equipment" name="beginner" />
-                        <span>No equipment</span>
-                    </div>
-                    <div>
-                        <input type="checkbox" defaultChecked={checked} onChange={handleChange} id="equipment_club-apparatus" name="intermediate" />
-                        <span>Club apparatus</span>
-                    </div>
-                </li>
-            </ul>
-        </div>
-        <div>
-            <h3>Goal</h3>
-            <ul>
-                <li>
-                    <div>
-                        <input type="checkbox" defaultChecked={checked} onChange={handleChange} id="goals_shape-&-tone" name="shape-&-tone" />
-                        <span>Shape & tone</span>
-                    </div>
-                    <div>
-                        <input type="checkbox" defaultChecked={checked} onChange={handleChange} id="goals_weight-loss" name="weight-loss" />
-                        <span>Weight loss</span>
-                    </div>
-                    <div>
-                        <input type="checkbox" defaultChecked={checked} onChange={handleChange} id="goals_muscle-building" name="muscle-building" />
-                        <span>Muscle building</span>
-                    </div>
-                    <div>
-                        <input type="checkbox" defaultChecked={checked} onChange={handleChange} id="goals_get-fitter" name="get-fitter" />
-                        <span>Get fitter</span>
-                    </div>
-                    <div>
-                        <input type="checkbox" defaultChecked={checked} onChange={handleChange} id="goals_improve-performance" name="improve-performance" />
-                        <span>Improve performance</span>
-                    </div>
-                </li>
-            </ul>
-        </div>
-        <div>
-            <h3>Format</h3>
-            <ul>
-                <li>
-                    <div>
-                        <input type="checkbox" defaultChecked={checked} onChange={handleChange} id="format_individual-workout" name="individual-workout" />
-                        <span>Individual workout</span>
-                    </div>
-                    <div>
-                        <input type="checkbox" defaultChecked={checked} onChange={handleChange} id="format_video-workout" name="video-workout" />
-                        <span>Video-workout</span>
-                    </div>
-                    <div>
-                        <input type="checkbox" defaultChecked={checked} onChange={handleChange} id="format_audio-workout" name="audio-workout" />
-                        <span>Audio-workout</span>
-                    </div>
-                </li>
-            </ul>
-        </div>
+        {filters.map(f => {
+            return (
+                <div key={f.category} style={{margin: "15px 0"}}>
+                    <h4 style={{margin: "0 0 5px 0"}}>{f.category}</h4>
+                    <ul style={{display: "flex", flexWrap: "wrap", padding: "0", margin: "0"}}>
+                        {f.filters.map(filter => {
+                            return <li style={{listStyle: "none", padding: "10px", margin: "0 5px 5px 0", fontSize: "12px"}} className={filtersApplied.includes(filter.id) ? "filter_item filter_active" : "filter_item"} key={filter.id} onClick={handleChange} id={filter.id} name={filter.name}>
+                                    {filter.label}
+                                </li>
+                        })}
+                    </ul>
+                </div>
+            )
+        })}
         </>
     )
 };

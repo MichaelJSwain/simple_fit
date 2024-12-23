@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import LoadingView from "./LoadingView";
 import WorkoutList from "./WorkoutList";
 import WorkoutListFilters from "./WorkoutListFilters";
+import NoResults from "./NoResults";
 
 const WorkoutListView = () => {
     const [modalActive, setModalActive] = useState(false); 
@@ -96,12 +97,20 @@ const WorkoutListView = () => {
             
             
             {isLoading && <LoadingView/>}
-            {workoutList.length && <WorkoutList workoutList={filteredWorkouts} filters={filtersApplied}/>}
+            {filteredWorkouts.length ? <WorkoutList workoutList={filteredWorkouts} filters={filtersApplied}/> : <NoResults />}
             </div>
             <div className={modalActive ? 'modalContainer active' : 'modalContainer'}>
-          <button onClick={() => {setModalActive(!modalActive)}}>X</button>
-          <WorkoutListFilters filterFunc={handleFilter}/>
-          <button className='primaryCta' onClick={() => setModalActive(!modalActive)}>See {filteredWorkouts.length} results</button>
+                <div className="filters_content_container">
+                    <div className="filters_content_header" style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
+                        <h2>FILTERS</h2>
+                        <button onClick={() => {setFiltersApplied([])}} style={{background:'none', height: '40px', color: 'black'}}>Reset</button>
+                    </div>
+                    <WorkoutListFilters filterFunc={handleFilter} filtersApplied={filtersApplied}/>
+                </div>
+                <div className="filters_button_container">
+                    <button className='primaryCta' onClick={() => setModalActive(!modalActive)}>See {filteredWorkouts.length} results</button>
+                </div>
+                
         </div>
         </div>
     )
