@@ -96,7 +96,7 @@ const WorkoutListView = () => {
 
             {!!filtersApplied && (
                 <div style={{display: "flex", overflow: "scroll", margin: "10px 0"}}>
-                    {filtersApplied.map(filter => <div onClick={() => handleFilter(filter)} style={{display: "flex", marginRight: "10px", background: "orange", fontWeight: "bold", color: "white", width: "fit-content", padding: "5px 10px"}}>{filter.split("_")[1].split("-").join(" ")}</div>)}
+                    {filtersApplied.map(filter => <div key={filter} onClick={() => handleFilter(filter)} style={{display: "flex", marginRight: "10px", background: "orange", fontWeight: "bold", color: "white", width: "fit-content", padding: "5px 10px"}}>{filter.split("_")[1].split("-").join(" ")}</div>)}
                 </div>
             )}
 

@@ -1,5 +1,8 @@
+import { Link } from "react-router-dom";
+
 const WorkoutListItem = ({workout}) => {
     return (
+        <Link to={`/workouts/${workout._id}`}>
         <div className="WorkoutListItem" style={{display: 'flex', border: '1px solid black', padding: '10px', margin: '10px 0'}}>
             <div className="img_container">
                 <div style={{height: '50px', width: '50px', background: 'grey'}} className="placeholder_img">
@@ -18,6 +21,7 @@ const WorkoutListItem = ({workout}) => {
                 </div>
             </div>
         </div>
+        </Link>
     )
 };
 

@@ -7,6 +7,8 @@ import StartScreen from './components/StartScreen.jsx';
 import AuthContextProvider, { AuthContext } from './AuthContextProvider.jsx';
 import WorkoutListView from './components/WorkoutListView.jsx';
 import Navbar from './components/Navbar.jsx';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import WorkoutDetailView from './components/WorkoutDetailView.jsx';
 
 function App() {
   const [modalActive, setModalActive] = useState(false);
@@ -48,12 +50,18 @@ function App() {
 
   return (
       <div className='app'>
-        {authContext.user ? 
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<WorkoutListView/>}></Route>
+            <Route path="/workouts/:id" element={<WorkoutDetailView/>}></Route>
+          </Routes>
+        </BrowserRouter>
+        {/* {authContext.user ? 
         <div style={{background: 'white', color: 'black'}}>
           <Navbar />
           <WorkoutListView/>
         </div> : 
-        <StartScreen></StartScreen>}
+        <StartScreen></StartScreen>} */}
       </div>
     
   )
