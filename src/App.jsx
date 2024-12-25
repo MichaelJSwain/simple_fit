@@ -52,16 +52,10 @@ function App() {
       <div className='app'>
         <BrowserRouter>
           <Routes>
-            <Route path="/" element={<WorkoutListView/>}></Route>
-            <Route path="/workouts/:id" element={<WorkoutDetailView/>}></Route>
+            <Route path="/" element={authContext.user ? <WorkoutListView/> : <StartScreen></StartScreen>}></Route>
+            <Route path="/workouts/:id" element={authContext.user ? <WorkoutDetailView/> : <StartScreen></StartScreen>}></Route>
           </Routes>
         </BrowserRouter>
-        {/* {authContext.user ? 
-        <div style={{background: 'white', color: 'black'}}>
-          <Navbar />
-          <WorkoutListView/>
-        </div> : 
-        <StartScreen></StartScreen>} */}
       </div>
     
   )

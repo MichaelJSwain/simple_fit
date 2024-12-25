@@ -32,37 +32,53 @@ const WorkoutDetailView= () => {
             {isLoading && <LoadingView />}
             {workout && (
                 <div>
-                    <div style={{display: "flex", justifyContent: "space-between"}}>
+                <div style={{padding: "20px 20px 80px 20px"}}>
+                    <div style={{display: "flex", justifyContent: "space-around"}}>
                         <div style={{display: "flex", flexDirection: "column", alignItems: "center"}}>
-                            <div style={{height: "50px", width: "50px", borderRadius: "50%", border: "1px solid black"}}></div>
+                            <div style={{height: "40px", width: "40px", borderRadius: "50%", border: "1px solid black"}}></div>
                             <div style={{display: "flex", flexDirection: "column", textAlign: "center"}}>
                                 <span>{workout.duration}</span>
                                 <span>duration</span>
                             </div>
                         </div>
                         <div style={{display: "flex", flexDirection: "column", alignItems: "center"}}>
-                            <div style={{height: "50px", width: "50px", borderRadius: "50%", border: "1px solid black"}}></div>
+                            <div style={{height: "40px", width: "40px", borderRadius: "50%", border: "1px solid black"}}></div>
                             <div style={{display: "flex", flexDirection: "column", textAlign: "center"}}>
                                 <span>{workout.difficulty}</span>
                                 <span>Difficulty</span>
                             </div>
                         </div>
                         <div style={{display: "flex", flexDirection: "column", alignItems: "center"}}>
-                            <div style={{height: "50px", width: "50px", borderRadius: "50%", border: "1px solid black"}}></div>
+                            <div style={{height: "40px", width: "40px", borderRadius: "50%", border: "1px solid black"}}></div>
                             <div style={{display: "flex", flexDirection: "column", textAlign: "center"}}>
                                 <span>{workout.type}</span>
                                 <span>type</span>
                             </div>
                         </div>
                     </div>
-                    <div style={{display: "flex"}}>
-                        <h2>{workout.name}</h2>
-                        <div style={{background: "black", borderRadius: "50%", height: "40px", width: "40px"}}></div>
+
+                    <hr style={{margin: "20px 0"}}></hr>
+
+                    <div style={{display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "20px"}}>
+                        <h2 style={{margin: "0"}}>{workout.name}</h2>
+                        <div style={{background: "black", borderRadius: "50%", height: "30px", width: "30px"}}></div>
                     </div>
                     
                     <p>{workout.description}</p>
 
-                    <div>
+                    {workout.goals && (
+                        <div style={{display: "flex"}}>
+                            {workout.goals.map(goal => {
+                                return <div style={{marginRight: "5px", background: "grey", padding: "5px", fontSize: "12px", color: "black"}}>{goal}</div>
+                            })}
+                        </div>
+                        )
+                    }
+                
+
+                    {workout.trainingSet && (
+                        <div style={{marginTop: "20px"}}>
+                        <h4 style={{margin: "0"}}>Training set</h4>
                         {workout.trainingSet.map(set => {
                             return (
                                 <div className="WorkoutListItem" style={{display: 'flex', border: '1px solid black', padding: '10px', margin: '10px 0'}}>
@@ -83,9 +99,14 @@ const WorkoutDetailView= () => {
                             )
                         })}
                     </div>
+                    )
+                    }
+ 
                     
-                    <div style={{position: "fixed"}} className="filters_button_container">
-                        <button className='primaryCta'>Begin</button>
+               
+                </div>
+                <div style={{position: "fixed"}} className="filters_button_container">
+                        <button style={{width: "100%", maxWidth: "unset"}} className='primaryCta'>Begin training</button>
                     </div>
                 </div>
             )}
