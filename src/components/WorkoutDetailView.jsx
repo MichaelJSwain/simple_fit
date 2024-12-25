@@ -2,11 +2,12 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import LoadingView from "./LoadingView";
-
+import WorkoutActiveView from "./WorkoutActiveView";
 
 const WorkoutDetailView= () => {
     const [workout, setWorkout] = useState();
     const [isLoading, setIsLoading] = useState();
+    const [workoutActive, setWorkoutActive] = useState(false);
 
     const {id} = useParams();
     console.log("params = ", id);
@@ -30,7 +31,7 @@ const WorkoutDetailView= () => {
     return (
         <>
             {isLoading && <LoadingView />}
-            {workout && (
+            {(workout && !workoutActive) && (
                 <div>
                 <div style={{padding: "20px 20px 80px 20px"}}>
                     <div style={{display: "flex", justifyContent: "space-around"}}>
@@ -69,7 +70,7 @@ const WorkoutDetailView= () => {
                     {workout.goals && (
                         <div style={{display: "flex"}}>
                             {workout.goals.map(goal => {
-                                return <div style={{marginRight: "5px", background: "grey", padding: "5px", fontSize: "12px", color: "black"}}>{goal}</div>
+                                return <div key={goal} style={{marginRight: "5px", background: "grey", padding: "5px", fontSize: "12px", color: "black"}}>{goal}</div>
                             })}
                         </div>
                         )
@@ -81,6 +82,7 @@ const WorkoutDetailView= () => {
                         <h4 style={{margin: "0"}}>Training set</h4>
                         {workout.trainingSet.map(set => {
                             return (
+                                <div key={set.name}>
                                 <div className="WorkoutListItem" style={{display: 'flex', border: '1px solid black', padding: '10px', margin: '10px 0'}}>
                                 <div className="img_container">
                                     <div style={{height: '50px', width: '50px', background: 'grey'}} className="placeholder_img">
@@ -96,6 +98,7 @@ const WorkoutDetailView= () => {
                                     </div>
                                 </div>
                             </div>
+                            </div>
                             )
                         })}
                     </div>
@@ -106,9 +109,12 @@ const WorkoutDetailView= () => {
                
                 </div>
                 <div style={{position: "fixed"}} className="filters_button_container">
-                        <button style={{width: "100%", maxWidth: "unset"}} className='primaryCta'>Begin training</button>
+                        <button style={{width: "100%", maxWidth: "unset"}} className='primaryCta' onClick={() => setWorkoutActive(true)}>Begin training</button>
                     </div>
                 </div>
+            )}
+            {(workout && workoutActive) && (
+                <WorkoutActiveView workout={workout} />
             )}
         </>
     )
