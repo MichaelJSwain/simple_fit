@@ -1,18 +1,21 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import LoadingView from "./LoadingView";
 import WorkoutActiveView from "./WorkoutActiveView";
+import { AuthContext } from "../AuthContextProvider";
 
 const WorkoutDetailView= () => {
     const [workout, setWorkout] = useState();
     const [isLoading, setIsLoading] = useState();
     const [workoutActive, setWorkoutActive] = useState(false);
+    const authContext = useContext(AuthContext);
 
     const {id} = useParams();
     console.log("params = ", id);
 
     const fetchWorkout = () => {
+        console.log("fetching workouts");
         axios.get(`http://localhost:8080/exerciseApp/api/workouts/${id}`)
         .then(res => {
             console.log(`workouts = `, res);
@@ -27,6 +30,34 @@ const WorkoutDetailView= () => {
     useEffect(() => {
         fetchWorkout();
     }, []);
+
+    const handleWorkoutBegin = () => {
+        axios.post("http://localhost:8080/exerciseApp/api/workouts/current", {
+            userId: authContext.user._id,
+            workoutId: workout._id
+        })
+        .then(() => {
+            console.log("successfully persisted in progress workout");
+        })
+        .catch(e => {
+            console.log("error persisting in progress workout");
+        })
+        setWorkoutActive(true);
+    }
+
+    const handleFavourite = (workoutId) => {
+        console.log("favouriting ", workoutId);
+        axios.post("http://localhost:8080/exerciseApp/api/favourites", {
+            userId: authContext.user._id,
+            workoutId
+        })
+        .then(() => {
+            console.log("favourited workout!");
+        })
+        .catch(e => {
+            console.log("error favouritng workout");
+        })
+    }
 
     return (
         <>
@@ -62,7 +93,7 @@ const WorkoutDetailView= () => {
 
                     <div style={{display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "20px"}}>
                         <h2 style={{margin: "0"}}>{workout.name}</h2>
-                        <div style={{background: "black", borderRadius: "50%", height: "30px", width: "30px"}}></div>
+                        <div onClick={() => handleFavourite(workout._id)} style={{background: "black", borderRadius: "50%", height: "30px", width: "30px"}}></div>
                     </div>
                     
                     <p>{workout.description}</p>
@@ -109,12 +140,12 @@ const WorkoutDetailView= () => {
                
                 </div>
                 <div style={{position: "fixed"}} className="filters_button_container">
-                        <button style={{width: "100%", maxWidth: "unset"}} className='primaryCta' onClick={() => setWorkoutActive(true)}>Begin training</button>
+                        <button style={{width: "100%", maxWidth: "unset"}} className='primaryCta' onClick={handleWorkoutBegin}>Begin training</button>
                     </div>
                 </div>
             )}
             {(workout && workoutActive) && (
-                <WorkoutActiveView workout={workout} />
+                <WorkoutActiveView workout={workout} handleWorkoutCancel={() => setWorkoutActive(false)} />
             )}
         </>
     )

@@ -13,6 +13,7 @@ const AuthContextProvider = ({children}) => {
                 password: password
               })
               .then(function (response) {
+                console.log("AUTH RESPONSE = ", response);
                 setUser(response.data);
               })
               .catch(function (error) {
