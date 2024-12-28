@@ -47,11 +47,11 @@ const Timer = ({duration, handleTimerComplete}) => {
     return (
         <div style={{display: "flex", justifyContent: "end", width: "100%", alignItems: "center"}}>
             <div style={{width: "100%"}}>
-                <h1>{timerCount}</h1>
+                <h1 style={{textAlign: "center"}}>{timerCount}</h1>
             </div>
             <div style={{position: "absolute"}}>
-                <button text={isTimerStarted ? "Pause" : "Start"} onClick={() => setIsTimerStarted(!isTimerStarted)} variant="primary"/>
-                
+                {/* <button text={isTimerStarted ? "Pause" : "Start"} onClick={() => setIsTimerStarted(!isTimerStarted)} variant="primary"/> */}
+                <button onClick={() => setIsTimerStarted(!isTimerStarted)} variant="primary">{isTimerStarted ? "Pause" : "Start"}</button>
             </div>
         </div>
     )

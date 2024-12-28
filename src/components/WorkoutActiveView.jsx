@@ -48,22 +48,30 @@ const WorkoutActiveView = ({workout, handleWorkoutCancel}) => {
             {(trainingSet.length && !showingCountdown && !isCompleted) && (
                 <div>
                     <button onClick={handleWorkoutCancel}>X</button>
-                    <h4>{trainingSet[currentExercise].name}</h4>
+                    <h4 style={{textAlign: "center"}}>{trainingSet[currentExercise].name}</h4>
 
                     <Timer key={trainingSet[currentExercise]._id} duration={trainingSet[currentExercise]} handleTimerComplete={incrementExercise}/>
 
                     {showingInstructions && <div>
-                        {trainingSet[currentExercise].instructions}
+                        <ul>
+                        {trainingSet[currentExercise].instructions.map(i => {
+                            return <li>{i}</li>
+                        })}
+                        </ul>
                     </div>}
                     
-                    <div>
-                        {!!trainingSet[currentExercise].instructions.length && <button onClick={() => setShowingInstructions(!showingInstructions)}>Instructions</button>}
-                        <button onClick={incrementExercise}>Next</button>
+                    <div style={{display: "flex", justifyContent: "space-between"}}>
+                        <div>
+                            {!!trainingSet[currentExercise].instructions.length && <button onClick={() => setShowingInstructions(!showingInstructions)}>Instructions</button>}
+                        </div>
+                        <div>
+                            <button onClick={incrementExercise}>Next</button>
+                        </div>
                     </div>
                 </div>
             )}
             {
-                isCompleted && <WorkoutCompletedView clickFunc={endWorkout}/>
+                isCompleted && <WorkoutCompletedView clickFunc={endWorkout} workout={workout}/>
             }
         </>
     )

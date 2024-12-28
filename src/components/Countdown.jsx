@@ -36,8 +36,8 @@ const Countdown = ({num, handleCountdownFinish}) => {
     }, [count]);
 
     return (
-        <div className="countdown-container">
-            <h1>{count}</h1>
+        <div className="countdown-container" style={{background: "#fe7000", height: "100vh", display: "flex", justifyContent: "center", alignItems: "center"}}>
+            <h1 style={{fontSize: "5.2em"}}>{count}</h1>
         </div>
     )
 };
