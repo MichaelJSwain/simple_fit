@@ -4,6 +4,8 @@ import LoadingView from "./LoadingView";
 import WorkoutList from "./WorkoutList";
 import WorkoutListFilters from "./WorkoutListFilters";
 import NoResults from "./NoResults";
+import ActiveFilter from "./ActiveFilter";
+import ActiveFilters from "./ActiveFilters";
 
 const WorkoutListView = () => {
     const [modalActive, setModalActive] = useState(false); 
@@ -88,22 +90,16 @@ const WorkoutListView = () => {
     }
 
     return (
-        <div className="WorkoutListView">
+        <div className="WorkoutListView MainLayout-component">
             <div className="screen_content_container">
             <div className="PageTitle_container" style={{margin: '10px'}}>
                 <h1 className="PageTitle" style={{margin: '0', fontSize: '32px'}}>Workouts</h1>
             </div>
 
-            {!!filtersApplied && (
-                <div style={{display: "flex", overflow: "scroll", margin: "10px 0"}}>
-                    {filtersApplied.map(filter => <div key={filter} onClick={() => handleFilter(filter)} style={{display: "flex", marginRight: "10px", background: "orange", fontWeight: "bold", color: "white", width: "fit-content", padding: "5px 10px"}}>{filter.split("_")[1].split("-").join(" ")}</div>)}
-                </div>
-            )}
+            {!!filtersApplied && <ActiveFilters filters={filtersApplied} handleFilter={handleFilter} />}
 
             <button className="Button-Secondary" onClick={() => setModalActive(!modalActive)}>Filter</button>
             
-        
-
             {isLoading && <LoadingView/>}
             {filteredWorkouts.length ? <WorkoutList workoutList={filteredWorkouts} filters={filtersApplied}/> : <NoResults />}
             </div>

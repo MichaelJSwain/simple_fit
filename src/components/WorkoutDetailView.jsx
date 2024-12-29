@@ -70,9 +70,9 @@ const WorkoutDetailView= () => {
             
             {isLoading && <LoadingView />}
             {(workout && !workoutActive) && (
-                <div>
+                <div className="MainLayout-component">
                     <Link to="/">Workouts</Link>
-                <div style={{padding: "20px 20px 80px 20px"}}>
+                <div style={{padding: "0 0 80px 0"}}>
                     <div style={{display: "flex", justifyContent: "space-around"}}>
                         <div style={{display: "flex", flexDirection: "column", alignItems: "center"}}>
                             <div style={{height: "40px", width: "40px", borderRadius: "50%", border: "1px solid black"}}></div>

@@ -46,7 +46,7 @@ const WorkoutActiveView = ({workout, handleWorkoutCancel}) => {
         <>
             {showingCountdown && <Countdown num={3} handleCountdownFinish={() => setShowingCountdown(false)}/>}
             {(trainingSet.length && !showingCountdown && !isCompleted) && (
-                <div>
+                <div className="MainLayout-component">
                     <button onClick={handleWorkoutCancel}>X</button>
                     <h4 style={{textAlign: "center"}}>{trainingSet[currentExercise].name}</h4>
 

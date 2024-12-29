@@ -1,6 +1,17 @@
 #root {
-  height: 100vh;
+  height: fit-content;
+  min-height: 100vh;
   width: 100vw;
+}
+
+.theme {
+  color: black;
+  background: white;
+}
+
+.MainLayout-component {
+  box-sizing: border-box;
+  padding: 20px;
 }
 
 /* NAVBAR START */
@@ -103,6 +114,9 @@
 .text_centered {
   text-align: center;
 }
+h1 {
+  margin-top: 0;
+}
 /* TYPOGRAPHY END */
 
 /* FILTERS START */
@@ -114,9 +128,10 @@
 .filters_button_container {
   position: absolute;
   bottom: 0;
-  padding: 15px 20px;
+  padding: 15px 0;
   background: white;
   width: calc(100% - 40px);
+  left: 20px
 }
 .filters_button_container .primaryCta {
   width: 100%;
@@ -129,6 +144,16 @@
 .filter_active {
   background: orange;
   color: white;
+}
+
+.ActiveFilter {
+  display: flex; 
+  margin-right: 10px;
+  background: orange;
+  font-weight: bold;
+  color: white;
+  width: fit-content;
+  padding: 5px 10px;
 }
 /* FILTERS END */
 

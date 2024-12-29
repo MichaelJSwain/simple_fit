@@ -3,7 +3,7 @@ import { useEffect } from "react";
 const WorkoutCompletedView = ({clickFunc, workout}) => {
 
     return (
-        <div style={{textAlign: "center", background: "#fe7000", height: "100vh" }}>
+        <div className="MainLayout-component" style={{textAlign: "center", background: "#fe7000", height: "100vh" }}>
             <h1>Well Done!</h1>
             <p>You've completed the following workout</p>
             <p>{workout.name}</p>
