@@ -1,7 +1,4 @@
-import { useState } from "react";
-
 const WorkoutListFilters = ({filterFunc, filtersApplied}) => {
-    const [checked, setChecked] = useState(false);
     const filters = [ 
             {
             category: "Difficulty",
@@ -89,12 +86,8 @@ const WorkoutListFilters = ({filterFunc, filtersApplied}) => {
             ]
         }
     ];
-    
-    console.log("filters passed to WorkouteLister => ", filtersApplied);
 
-    const handleChange = (e) => {
-        console.log(e.target.id)
-        setChecked(!checked)
+    const handleFilter = (e) => {
         filterFunc(e.target.id);
     }
 
@@ -106,7 +99,7 @@ const WorkoutListFilters = ({filterFunc, filtersApplied}) => {
                     <h4 style={{margin: "0 0 5px 0"}}>{f.category}</h4>
                     <ul style={{display: "flex", flexWrap: "wrap", padding: "0", margin: "0"}}>
                         {f.filters.map(filter => {
-                            return <li style={{listStyle: "none", padding: "10px", margin: "0 5px 5px 0", fontSize: "12px"}} className={filtersApplied.includes(filter.id) ? "filter_item filter_active" : "filter_item"} key={filter.id} onClick={handleChange} id={filter.id} name={filter.name}>
+                            return <li style={{listStyle: "none", padding: "10px", margin: "0 5px 5px 0", fontSize: "12px"}} className={filtersApplied.includes(filter.id) ? "filter_item filter_active" : "filter_item"} key={filter.id} onClick={handleFilter} id={filter.id} name={filter.name}>
                                     {filter.label}
                                 </li>
                         })}

@@ -4,6 +4,7 @@ import LoginForm from '../LoginForm.jsx';
 import RegisterForm from '../RegisterForm.jsx';
 import axios from 'axios';
 import { AuthContext } from '../AuthContextProvider.jsx';
+import Modal from './Modal.jsx';
 
 const StartScreen = () => {
     const [modalActive, setModalActive] = useState(false);
@@ -21,28 +22,28 @@ const StartScreen = () => {
               <button className='primaryCta' onClick={() => {setModalActive(!modalActive)}}>Login</button>
             </div>
           </div>
-          <div className={modalActive ? 'modalContainer active' : 'modalContainer'}>
+          <Modal modalActive={modalActive}>
             <div>
-          <button onClick={() => {setModalActive(!modalActive)}}>X</button>
-  
-  
-          <div className='formContainer'>
-            
-            {currentForm === "login" ? (
-              <>
-                <LoginForm toggleModal={setModalActive} setUser={setUser}/>
-                <button onClick={() => setCurrentForm('register')}>Register</button>
-              </>
-            ) : (
-              <>
-                <RegisterForm toggleModal={setModalActive}/>
-                <button onClick={() => setCurrentForm('login')}>Login</button>
-              </>
-            )}
-            
-          </div>
-          </div>
-        </div>
+            <button onClick={() => {setModalActive(!modalActive)}}>X</button>
+    
+    
+            <div className='formContainer'>
+              
+              {currentForm === "login" ? (
+                <>
+                  <LoginForm toggleModal={setModalActive} setUser={setUser}/>
+                  <button onClick={() => setCurrentForm('register')}>Register</button>
+                </>
+              ) : (
+                <>
+                  <RegisterForm toggleModal={setModalActive}/>
+                  <button onClick={() => setCurrentForm('login')}>Login</button>
+                </>
+              )}
+              
+            </div>
+            </div>
+          </Modal>
         </div>
   
 

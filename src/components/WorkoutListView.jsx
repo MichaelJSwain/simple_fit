@@ -6,6 +6,8 @@ import WorkoutListFilters from "./WorkoutListFilters";
 import NoResults from "./NoResults";
 import ActiveFilter from "./ActiveFilter";
 import ActiveFilters from "./ActiveFilters";
+import FixedButton from "./FixedButton";
+import Modal from "./Modal";
 
 const WorkoutListView = () => {
     const [modalActive, setModalActive] = useState(false); 
@@ -103,7 +105,7 @@ const WorkoutListView = () => {
             {isLoading && <LoadingView/>}
             {filteredWorkouts.length ? <WorkoutList workoutList={filteredWorkouts} filters={filtersApplied}/> : <NoResults />}
             </div>
-            <div className={modalActive ? 'modalContainer active' : 'modalContainer'}>
+            <Modal modalActive={modalActive}>
                 <div className="filters_content_container">
                     <div className="filters_content_header" style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
                         <h2>FILTERS</h2>
@@ -111,11 +113,8 @@ const WorkoutListView = () => {
                     </div>
                     <WorkoutListFilters filterFunc={handleFilter} filtersApplied={filtersApplied}/>
                 </div>
-                <div className="filters_button_container">
-                    <button className='primaryCta' onClick={() => setModalActive(!modalActive)}>See {filteredWorkouts.length} results</button>
-                </div>
-                
-        </div>
+                <FixedButton clickFunc={() => setModalActive(!modalActive)} text={`See ${filteredWorkouts.length} results`}/>
+            </Modal>
         </div>
     )
 };
