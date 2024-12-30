@@ -6,7 +6,7 @@ const AuthPanel = () => {
     const [currentForm, setCurrentForm] = useState("login");
 
     return (
-        <>
+        <div className='formContainer'>
             {currentForm === "login" ?
             <>
                 <LoginForm />
@@ -17,7 +17,7 @@ const AuthPanel = () => {
                 <button onClick={() => setCurrentForm('login')}>Login</button>
             </>
             }
-        </>
+        </div>
     )
 }
 
