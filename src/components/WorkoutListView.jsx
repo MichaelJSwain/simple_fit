@@ -8,6 +8,7 @@ import ActiveFilter from "./ActiveFilter";
 import ActiveFilters from "./ActiveFilters";
 import FixedButton from "./FixedButton";
 import Modal from "./Modal";
+import WorkoutFiltersDrawer from "./WorkoutFiltersDrawer";
 
 const WorkoutListView = () => {
     const [modalActive, setModalActive] = useState(false); 
@@ -103,17 +104,21 @@ const WorkoutListView = () => {
             <button className="Button-Secondary" onClick={() => setModalActive(!modalActive)}>Filter</button>
             
             {isLoading && <LoadingView/>}
-            {filteredWorkouts.length ? <WorkoutList workoutList={filteredWorkouts} filters={filtersApplied}/> : <NoResults />}
+            {filteredWorkouts.length ? 
+                <WorkoutList workoutList={filteredWorkouts} filters={filtersApplied}/> : 
+                <NoResults />
+            }
             </div>
             <Modal modalActive={modalActive}>
-                <div className="filters_content_container">
-                    <div className="filters_content_header" style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
-                        <h2>FILTERS</h2>
-                        <button onClick={() => {setFiltersApplied([])}} style={{background:'none', height: '40px', color: 'black'}}>Reset</button>
-                    </div>
-                    <WorkoutListFilters filterFunc={handleFilter} filtersApplied={filtersApplied}/>
-                </div>
-                <FixedButton clickFunc={() => setModalActive(!modalActive)} text={`See ${filteredWorkouts.length} results`}/>
+                <WorkoutFiltersDrawer 
+                    filtersApplied={filtersApplied} 
+                    handleResetFilters={() => setFiltersApplied([])} 
+                    filterFunc={handleFilter}
+                />
+                <FixedButton 
+                    clickFunc={() => setModalActive(!modalActive)} 
+                    text={`See ${filteredWorkouts.length} results`}
+                />
             </Modal>
         </div>
     )

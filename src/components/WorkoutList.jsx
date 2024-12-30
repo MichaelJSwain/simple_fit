@@ -1,9 +1,6 @@
 import WorkoutListItem from "./WorkoutListItem"
 
-const WorkoutList = ({workoutList, filters}) => {
-
-    console.log(workoutList)
-
+const WorkoutList = ({workoutList}) => {
     return (
         <div className="WorkoutList">
             <div className="ListCount_container" style={{margin: '20px 0'}}>
