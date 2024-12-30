@@ -1,4 +1,4 @@
-import {useContext, useState } from "react";
+import {useContext, useRef, useState } from "react";
 import Countdown from "./Countdown";
 import WorkoutCompletedView from "./WorkoutCompletedView";
 import { useNavigate } from "react-router-dom";
@@ -7,7 +7,7 @@ import axios from "axios";
 import { AuthContext } from "../AuthContextProvider";
 
 const WorkoutActiveView = ({workout, handleWorkoutCancel}) => {
-    const [trainingSet, setTrainingSet] = useState(workout.trainingSet);
+    const {current: trainingSet} = useRef(workout.trainingSet);
     const [currentExercise, setCurrentExercise] = useState(0);
     const [showingCountdown, setShowingCountdown] = useState(true);
     const [showingInstructions, setShowingInstructions] = useState(false);
@@ -54,8 +54,8 @@ const WorkoutActiveView = ({workout, handleWorkoutCancel}) => {
 
                     {showingInstructions && <div>
                         <ul>
-                        {trainingSet[currentExercise].instructions.map(i => {
-                            return <li>{i}</li>
+                        {trainingSet[currentExercise].instructions.map((i, idx) => {
+                            return <li key={idx}>{i}</li>
                         })}
                         </ul>
                     </div>}
