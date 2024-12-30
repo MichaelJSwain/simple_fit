@@ -80,11 +80,16 @@
 
 /* FORM START */
 .formContainer {
-  margin: 20px;
+  margin: 20px 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 .form {
   display: flex;
   flex-direction: column;
+  width: 100%;
+  margin-bottom: 20px;
 }
 .formSection {
   display: flex;

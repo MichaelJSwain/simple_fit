@@ -2,7 +2,7 @@ import { useContext, useState } from "react"
 import axios from "axios";
 import { AuthContext } from "./AuthContextProvider";
 
-const LoginForm = ({toggleModal, setUser}) => {
+const LoginForm = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [generalError, setGeneralError] = useState(false);
@@ -47,12 +47,12 @@ const LoginForm = ({toggleModal, setUser}) => {
                 <div className='formSection'>
                 <label className='formLabel' htmlFor="email">E-mail:</label>
                 <input className='formInput' id="email" name="email" onChange={handleChange} value={email}></input>
-                {emailError && <h4 style={{color: 'red'}}>Please type a valid email</h4>}
+                {emailError && <h4 style={{color: 'red', margin: "0"}}>Please type a valid email</h4>}
                 </div>
                 <div className='formSection'>
                 <label className='formLabel' htmlFor="password">Password:</label>
                 <input className='formInput' id="password" name="password" onChange={handleChange} value={password}></input>
-                {passwordError && <h4 style={{color: 'red'}}>Please type your password</h4>}
+                {passwordError && <h4 style={{color: 'red', margin: "0"}}>Please type your password</h4>}
                 </div>
                 <button className='primaryCta'>Login</button>
             </form>

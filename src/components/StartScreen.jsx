@@ -5,6 +5,7 @@ import RegisterForm from '../RegisterForm.jsx';
 import axios from 'axios';
 import { AuthContext } from '../AuthContextProvider.jsx';
 import Modal from './Modal.jsx';
+import AuthPanel from './AuthPanel.jsx';
 
 const StartScreen = () => {
     const [modalActive, setModalActive] = useState(false);
@@ -23,24 +24,12 @@ const StartScreen = () => {
             </div>
           </div>
           <Modal modalActive={modalActive}>
-            <div>
+            <div style={{padding: "20px", height: "100%"}}>
             <button onClick={() => {setModalActive(!modalActive)}}>X</button>
     
     
             <div className='formContainer'>
-              
-              {currentForm === "login" ? (
-                <>
-                  <LoginForm toggleModal={setModalActive} setUser={setUser}/>
-                  <button onClick={() => setCurrentForm('register')}>Register</button>
-                </>
-              ) : (
-                <>
-                  <RegisterForm toggleModal={setModalActive}/>
-                  <button onClick={() => setCurrentForm('login')}>Login</button>
-                </>
-              )}
-              
+              <AuthPanel />
             </div>
             </div>
           </Modal>
