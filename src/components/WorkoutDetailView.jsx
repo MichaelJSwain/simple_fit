@@ -4,8 +4,9 @@ import { Link, useParams } from "react-router-dom";
 import LoadingView from "./LoadingView";
 import WorkoutActiveView from "./WorkoutActiveView";
 import { AuthContext } from "../AuthContextProvider";
-import WorkoutDetail from "./WorkoutDetail";
 import WorkoutDetails from "./WorkoutDetails";
+import WorkoutGoals from "./WorkoutGoals";
+import ListItem from "./ListItem";
 
 const WorkoutDetailView= () => {
     const [workout, setWorkout] = useState();
@@ -97,14 +98,8 @@ const WorkoutDetailView= () => {
                     
                     <p>{workout.description}</p>
 
-                    {workout.goals && (
-                        <div style={{display: "flex"}}>
-                            {workout.goals.map(goal => {
-                                return <div key={goal} style={{marginRight: "5px", background: "grey", padding: "5px", fontSize: "12px", color: "black"}}>{goal}</div>
-                            })}
-                        </div>
-                        )
-                    }
+
+                    {workout.goals && <WorkoutGoals goals={workout.goals} />}
                 
 
                     {workout.trainingSet && (
@@ -112,23 +107,7 @@ const WorkoutDetailView= () => {
                         <h4 style={{margin: "0"}}>Training set</h4>
                         {workout.trainingSet.map(set => {
                             return (
-                                <div key={set.name}>
-                                <div className="WorkoutListItem" style={{display: 'flex', border: '1px solid black', padding: '10px', margin: '10px 0'}}>
-                                <div className="img_container">
-                                    <div style={{height: '50px', width: '50px', background: 'grey'}} className="placeholder_img">
-                    
-                                    </div>
-                                </div>
-                                <div className="text_container" style={{marginLeft: '10px'}}>
-                                    <div className="title_container" style={{marginBottom: '4px'}}>
-                                        <h2 className="title" style={{fontSize: '16px', textTransform: 'uppercase', margin: '0', lineHeight: '20px'}}>{set.name}</h2>
-                                    </div>
-                                    <div className="info_container" style={{lineHeight: '14px'}}>
-                                        {set.timer} sec
-                                    </div>
-                                </div>
-                            </div>
-                            </div>
+                                <ListItem key={set._id} isLinked={false} id={set._id} title={set.name} info={[`${set.timer} sec`]}/>
                             )
                         })}
                     </div>

@@ -109,9 +109,6 @@ const WorkoutListFilters = ({filterFunc, filtersApplied}) => {
                                         name={filter.name}
                                         label={filter.label}
                                     />
-                            // <li style={{listStyle: "none", padding: "10px", margin: "0 5px 5px 0", fontSize: "12px"}} className={filtersApplied.includes(filter.id) ? "filter_item filter_active" : "filter_item"} key={filter.id} onClick={handleFilter} id={filter.id} name={filter.name}>
-                            //         {filter.label}
-                            //     </li>
                         })}
                     </ul>
                 </div>

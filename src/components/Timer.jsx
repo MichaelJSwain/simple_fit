@@ -1,17 +1,9 @@
 import { useEffect, useRef, useState } from "react";
-// import Button from "./Buttons/PrimaryButton/Button";
-
-let timerId = null;
 
 const Timer = ({duration, handleTimerComplete}) => {
-    console.log("new timer")
     const [timerCount, setTimerCount] = useState(duration.timer);
     const [isTimerStarted, setIsTimerStarted] = useState(false);
     const timerId = useRef();
-
-    useEffect(() => {
-        console.log("use effect running")
-    }, []);
 
     const timer = {
         start: function() {
@@ -50,7 +42,6 @@ const Timer = ({duration, handleTimerComplete}) => {
                 <h1 style={{textAlign: "center"}}>{timerCount}</h1>
             </div>
             <div style={{position: "absolute"}}>
-                {/* <button text={isTimerStarted ? "Pause" : "Start"} onClick={() => setIsTimerStarted(!isTimerStarted)} variant="primary"/> */}
                 <button onClick={() => setIsTimerStarted(!isTimerStarted)} variant="primary">{isTimerStarted ? "Pause" : "Start"}</button>
             </div>
         </div>

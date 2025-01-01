@@ -1,19 +1,10 @@
 import { useEffect, useRef, useState } from "react"
-// import "./Countdown.css";
 
 const Countdown = ({num, handleCountdownFinish}) => {
     const [count, setCount] = useState(num);
     const countdownInterval = useRef();
 
-    console.log("countdown ref = ",countdownInterval)
-
-    const handleCountdown = () => {
-        
-    }
-
     useEffect(() => {
-        // handleCountdown();
-
         const id = setInterval(() => {
             console.log("counting down ", count);
             setCount(currVal => {return currVal - 1});

@@ -1,4 +1,4 @@
-import WorkoutListItem from "./WorkoutListItem"
+import ListItem from "./ListItem"
 
 const WorkoutList = ({workoutList}) => {
     return (
@@ -7,7 +7,7 @@ const WorkoutList = ({workoutList}) => {
                 <span className="ListCount_text">{workoutList.length} Results</span>
             </div>
             {workoutList.map(workout => {             
-                return <WorkoutListItem key={workout._id} workout={workout}/>
+                return <ListItem key={workout._id} isLinked={true} id={workout._id} title={workout.name} info={[workout.difficulty, workout.duration, workout.equipment, workout.format]}/>
             })}
         </div>
     )
