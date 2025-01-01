@@ -1,9 +1,11 @@
 import axios from "axios";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import LoadingView from "./LoadingView";
 import WorkoutActiveView from "./WorkoutActiveView";
 import { AuthContext } from "../AuthContextProvider";
+import WorkoutDetail from "./WorkoutDetail";
+import WorkoutDetails from "./WorkoutDetails";
 
 const WorkoutDetailView= () => {
     const [workout, setWorkout] = useState();
@@ -11,6 +13,7 @@ const WorkoutDetailView= () => {
     const [workoutActive, setWorkoutActive] = useState(false);
     const [isFavourited, setIsFavourited] = useState();
     const authContext = useContext(AuthContext);
+    const workoutDetailsRef = useRef();
 
     const {id} = useParams();
     console.log("params = ", id);
@@ -27,6 +30,12 @@ const WorkoutDetailView= () => {
             }
             setIsLoading(false);
             setWorkout(workout);
+
+            workoutDetailsRef.current = [
+                {value: workout.duration, label: "Duration"},
+                {value: workout.difficulty, label: "Difficulty"},
+                {value: workout.type, label: "Type"},
+            ]
         })
         .catch(e => {
             console.log('error fetching workouts');
@@ -73,29 +82,7 @@ const WorkoutDetailView= () => {
                 <div className="MainLayout-component">
                     <Link to="/">Workouts</Link>
                 <div style={{padding: "0 0 80px 0"}}>
-                    <div style={{display: "flex", justifyContent: "space-around"}}>
-                        <div style={{display: "flex", flexDirection: "column", alignItems: "center"}}>
-                            <div style={{height: "40px", width: "40px", borderRadius: "50%", border: "1px solid black"}}></div>
-                            <div style={{display: "flex", flexDirection: "column", textAlign: "center"}}>
-                                <span>{workout.duration}</span>
-                                <span>duration</span>
-                            </div>
-                        </div>
-                        <div style={{display: "flex", flexDirection: "column", alignItems: "center"}}>
-                            <div style={{height: "40px", width: "40px", borderRadius: "50%", border: "1px solid black"}}></div>
-                            <div style={{display: "flex", flexDirection: "column", textAlign: "center"}}>
-                                <span>{workout.difficulty}</span>
-                                <span>Difficulty</span>
-                            </div>
-                        </div>
-                        <div style={{display: "flex", flexDirection: "column", alignItems: "center"}}>
-                            <div style={{height: "40px", width: "40px", borderRadius: "50%", border: "1px solid black"}}></div>
-                            <div style={{display: "flex", flexDirection: "column", textAlign: "center"}}>
-                                <span>{workout.type}</span>
-                                <span>type</span>
-                            </div>
-                        </div>
-                    </div>
+                    <WorkoutDetails details={workoutDetailsRef.current} />
 
                     <hr style={{margin: "20px 0"}}></hr>
 
