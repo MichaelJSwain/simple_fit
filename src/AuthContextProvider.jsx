@@ -17,7 +17,9 @@ const AuthContextProvider = ({children}) => {
                 setUser(response.data);
               })
               .catch(function (error) {
-                handleError();
+                if (handleError) {
+                  handleError();
+                }
               });
     };
 
@@ -32,7 +34,9 @@ const AuthContextProvider = ({children}) => {
             setUser(response.data);
           })
           .catch(function (error) {
-            handleError();
+            if (handleError) {
+              handleError();
+            }
           });
     };
 

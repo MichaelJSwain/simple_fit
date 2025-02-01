@@ -2,6 +2,7 @@ import { useContext, useState } from "react"
 import axios from "axios";
 import { AuthContext } from "./AuthContextProvider";
 import { errorMessages } from "./errorMessages";
+import { Alert } from "./components/Alert";
 
 const LoginForm = () => {
     const [email, setEmail] = useState('');
@@ -43,17 +44,17 @@ const LoginForm = () => {
     
     return (
         <>
-            {generalError && <h4 style={{color: 'red'}}>{generalError}</h4>}
+            {generalError && <Alert>{generalError}</Alert>}
             <form onSubmit={(e) => handleSubmit(e)} className='form'>
                 <div className='formSection'>
                 <label className='formLabel' htmlFor="email">E-mail:</label>
-                <input className='formInput' id="email" name="email" onChange={handleChange} value={email}></input>
-                {emailError && <h4 style={{color: 'red', margin: "0"}}>{emailError}</h4>}
+                <input className='formInput' style={emailError ? {borderColor: "red"} : {borderColor: "black"}} id="email" name="email" onChange={handleChange} value={email}></input>
+                {emailError && <Alert>{emailError}</Alert>}
                 </div>
                 <div className='formSection'>
                 <label className='formLabel' htmlFor="password">Password:</label>
-                <input className='formInput' id="password" name="password" onChange={handleChange} value={password}></input>
-                {passwordError && <h4 style={{color: 'red', margin: "0"}}>{passwordError}</h4>}
+                <input className='formInput' style={passwordError ? {borderColor: "red"} : {borderColor: "black"}} id="password" name="password" onChange={handleChange} value={password}></input>
+                {passwordError && <Alert>{passwordError}</Alert>}
                 </div>
                 <button className='primaryCta'>Login</button>
             </form>
