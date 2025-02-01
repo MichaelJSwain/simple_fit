@@ -1,6 +1,7 @@
 import { useContext, useState } from "react"
 import axios from "axios";
 import { AuthContext } from "./AuthContextProvider";
+import { errorMessages } from "./errorMessages";
 
 const RegisterForm = () => {
     const [email, setEmail] = useState('');
@@ -23,11 +24,11 @@ const RegisterForm = () => {
       };
 
       const handleSubmit = (e) => {
+        e.preventDefault();
         setGeneralError(false);
         setEmailError(false);
         setPasswordError(false);
-        e.preventDefault();
-
+      
         if (!email) {
           setEmailError(true);
         }
@@ -35,22 +36,23 @@ const RegisterForm = () => {
           setPasswordError(true);
         }
         if (email && password) {
-          authContext.register(email, password, setGeneralError);
+          authContext.register(email, password, () => {setGeneralError(errorMessages.networkError)});
         }
   }
     
     return (
         <>
+            {generalError && <h4 style={{color: 'red'}}>{generalError}</h4>}
             <form onSubmit={handleSubmit} className='form'>
               <div className='formSection'>
                 <label className='formLabel' htmlFor="email">E-mail:</label>
                 <input className='formInput' id="email" name="email" onChange={handleChange} value={email}></input>
-                {emailError && <h4 style={{color: 'red', margin: "0"}}>Please type a valid email</h4>}
+                {emailError && <h4 style={{color: 'red', margin: "0"}}>{errorMessages.missingEmail}</h4>}
               </div>
               <div className='formSection'>
                 <label className='formLabel' htmlFor="password">Password:</label>
                 <input className='formInput' id="password" name="password" onChange={handleChange} value={password}></input>
-                {passwordError && <h4 style={{color: 'red', margin: "0"}}>Please type your password</h4>}
+                {passwordError && <h4 style={{color: 'red', margin: "0"}}>{errorMessages.missingPassword}</h4>}
               </div>
               <button className='primaryCta'>Register</button>
             </form>
