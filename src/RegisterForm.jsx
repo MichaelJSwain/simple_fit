@@ -1,6 +1,7 @@
 import { useContext, useState } from "react"
-import axios from "axios";
 import { AuthContext } from "./AuthContextProvider";
+import { errorMessages } from "./errorMessages";
+import { Alert } from "./components/Alert";
 
 const RegisterForm = () => {
     const [email, setEmail] = useState('');
@@ -23,34 +24,35 @@ const RegisterForm = () => {
       };
 
       const handleSubmit = (e) => {
+        e.preventDefault();
         setGeneralError(false);
         setEmailError(false);
         setPasswordError(false);
-        e.preventDefault();
-
+      
         if (!email) {
-          setEmailError(true);
+          setEmailError(errorMessages.missingEmail);
         }
         if (!password) {
-          setPasswordError(true);
+          setPasswordError(errorMessages.missingPassword);
         }
         if (email && password) {
-          authContext.register(email, password, setGeneralError);
+          authContext.register(email, password, () => {setGeneralError(errorMessages.networkError)});
         }
   }
     
     return (
         <>
+            {generalError && <Alert>{generalError}</Alert>}
             <form onSubmit={handleSubmit} className='form'>
               <div className='formSection'>
                 <label className='formLabel' htmlFor="email">E-mail:</label>
-                <input className='formInput' id="email" name="email" onChange={handleChange} value={email}></input>
-                {emailError && <h4 style={{color: 'red', margin: "0"}}>Please type a valid email</h4>}
+                <input className='formInput' style={emailError ? {borderColor: "red"} : {borderColor: "black"}} id="email" name="email" onChange={handleChange} value={email}></input>
+                {emailError && <Alert>{emailError}</Alert>}
               </div>
               <div className='formSection'>
                 <label className='formLabel' htmlFor="password">Password:</label>
-                <input className='formInput' id="password" name="password" onChange={handleChange} value={password}></input>
-                {passwordError && <h4 style={{color: 'red', margin: "0"}}>Please type your password</h4>}
+                <input className='formInput' style={passwordError ? {borderColor: "red"} : {borderColor: "black"}} id="password" name="password" onChange={handleChange} value={password}></input>
+                {passwordError && <Alert>{passwordError}</Alert>}
               </div>
               <button className='primaryCta'>Register</button>
             </form>

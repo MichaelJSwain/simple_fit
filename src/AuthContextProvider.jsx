@@ -17,7 +17,9 @@ const AuthContextProvider = ({children}) => {
                 setUser(response.data);
               })
               .catch(function (error) {
-                // handleError(true);
+                if (handleError) {
+                  handleError();
+                }
               });
     };
 
@@ -28,10 +30,13 @@ const AuthContextProvider = ({children}) => {
             password: password
           })
           .then(function (response) {
+            console.log(response)
             setUser(response.data);
           })
           .catch(function (error) {
-            // handleError(true);
+            if (handleError) {
+              handleError();
+            }
           });
     };
 
