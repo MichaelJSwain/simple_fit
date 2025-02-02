@@ -1,5 +1,4 @@
 import { useContext, useState } from "react"
-import axios from "axios";
 import { AuthContext } from "./AuthContextProvider";
 import { errorMessages } from "./errorMessages";
 import { Alert } from "./components/Alert";
