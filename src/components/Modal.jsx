@@ -1,7 +1,7 @@
 const Modal = ({modalActive, children}) => {
     return (
         <div className={modalActive ? 'modalContainer active' : 'modalContainer'}>
-            {children}
+            {modalActive && children}
         </div>
     )
 };

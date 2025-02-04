@@ -7,6 +7,7 @@ import ActiveFilters from "./ActiveFilters";
 import FixedButton from "./FixedButton";
 import Modal from "./Modal";
 import WorkoutFiltersDrawer from "./WorkoutFiltersDrawer";
+import { WorkoutBuilderView } from "./WorkoutBuilderView";
 
 const WorkoutListView = () => {
     const [filterModalActive, setfilterModalActive] = useState(false); 
@@ -121,7 +122,7 @@ const WorkoutListView = () => {
                 />
             </Modal>
             <Modal modalActive={workoutBuilderModalActive}>
-                <h1>Workout Builder Modal</h1>
+                <WorkoutBuilderView />
                 <FixedButton 
                     clickFunc={() => setWorkoutBuilderModalActive(!workoutBuilderModalActive)} 
                     text="close"
