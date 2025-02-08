@@ -123,10 +123,6 @@ const WorkoutListView = () => {
             </Modal>
             <Modal modalActive={workoutBuilderModalActive}>
                 <WorkoutBuilderView />
-                <FixedButton 
-                    clickFunc={() => setWorkoutBuilderModalActive(!workoutBuilderModalActive)} 
-                    text="close"
-                />
             </Modal>
         </div>
     )
