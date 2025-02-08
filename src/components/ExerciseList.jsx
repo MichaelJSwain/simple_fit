@@ -1,4 +1,9 @@
-export const ExerciseList = ({exerciseList, onExerciseSelected}) => {
+export const ExerciseList = ({selectedExercises, exerciseList, onExerciseSelected}) => {
+
+    const getClassList = (exercise) => {
+
+    }
+
     return (
         <div>
             {exerciseList.map(exercise => {

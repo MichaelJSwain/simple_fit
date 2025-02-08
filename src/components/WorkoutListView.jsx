@@ -122,7 +122,7 @@ const WorkoutListView = () => {
                 />
             </Modal>
             <Modal modalActive={workoutBuilderModalActive}>
-                <WorkoutBuilderView />
+                <WorkoutBuilderView toggleModal={() => setWorkoutBuilderModalActive(!workoutBuilderModalActive)} />
             </Modal>
         </div>
     )
