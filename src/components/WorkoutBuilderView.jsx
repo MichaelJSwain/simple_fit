@@ -5,9 +5,11 @@ import FixedButton from "./FixedButton";
 import { ExerciseListView } from "./ExerciseListView";
 import { WorkoutBuilderConfirmationView } from "./WorkoutBuilderConfirmationView";
 import { AuthContext } from "../AuthContextProvider";
+import { CustomWorkoutView } from "./CustomWorkoutView";
 
 export const WorkoutBuilderView = ({toggleModal}) => {
-    const [isShowingExerciseListView, setIsShowingExerciseListView] = useState(true);
+    const [isShowingCustomWorkoutView, setIsShowingCustomWorkoutView] = useState(true);
+    const [isShowingExerciseListView, setIsShowingExerciseListView] = useState(false);
     const [isShowingConfirmationView, setIsShowingConfirmationView]  = useState(false);
     const [isLoading, setIsLoading] = useState(false);
     const [isShowingSuccessMessage, setIsShowingSuccessMessage] = useState(false);
@@ -67,22 +69,38 @@ export const WorkoutBuilderView = ({toggleModal}) => {
           });
     }
 
+    const handleCreateWorkoutClick = () => {
+        console.log("handling create workout")
+        setIsShowingCustomWorkoutView(false);
+        setIsShowingExerciseListView(true);
+    }
+
     return (
         <div>
-            {isLoading && <LoadingView></LoadingView>}
-            {isShowingSuccessMessage && <>
-                <h4>Successfully created your new workout!</h4>
-                <button onClick={toggleModal}>Back to workouts</button>
-            </>}
-            {isShowingErrorMessage && <>
-                <h4>Unable to create your workout. Please try again later</h4>
-                <button onClick={toggleModal}>Back to workouts</button>
-            </>}
-            {!isLoading && <>
-                <button onClick={toggleModal}>Close</button>          
-                {isShowingExerciseListView && <ExerciseListView selectedExercises={selectedExercises} onExerciseSelected={(exercise) => handleExerciseSelected(exercise)} onAddWorkout={(selectedExercises) => handleAddWorkout(selectedExercises)}></ExerciseListView>}
-                {isShowingConfirmationView && <WorkoutBuilderConfirmationView onSaveWorkout={handleSaveWorkout} clickFunc={handleBackToExerciseList} exerciseList={selectedExercises}></WorkoutBuilderConfirmationView>}          
-            </>}
+            {isShowingCustomWorkoutView && 
+                <CustomWorkoutView toggleModal={toggleModal} onCreateWorkoutClick={handleCreateWorkoutClick}/>
+            }
+            {!isShowingCustomWorkoutView && 
+                <>
+                        {isLoading && <LoadingView></LoadingView>}
+                    {isShowingSuccessMessage && <>
+                        <h4>Successfully created your new workout!</h4>
+                        <button onClick={toggleModal}>Back to workouts</button>
+                    </>}
+                    {isShowingErrorMessage && <>
+                        <h4>Unable to create your workout. Please try again later</h4>
+                        <button onClick={toggleModal}>Back to workouts</button>
+                    </>}
+                    {!isLoading && <>
+                               
+                        {isShowingExerciseListView && <ExerciseListView selectedExercises={selectedExercises} onExerciseSelected={(exercise) => handleExerciseSelected(exercise)} onAddWorkout={(selectedExercises) => handleAddWorkout(selectedExercises)} onBackButtonClick={() => {
+                                            setIsShowingCustomWorkoutView(true);
+                                            setIsShowingExerciseListView(false);
+                                        }}></ExerciseListView>}
+                        {isShowingConfirmationView && <WorkoutBuilderConfirmationView onSaveWorkout={handleSaveWorkout} clickFunc={handleBackToExerciseList} exerciseList={selectedExercises}></WorkoutBuilderConfirmationView>}          
+                    </>}
+                </>}
+
         </div>
     )   
 }

@@ -4,7 +4,7 @@ import LoadingView from "./LoadingView";
 import { ExerciseList } from "./ExerciseList";
 import FixedButton from "./FixedButton";
 
-export const ExerciseListView = ({selectedExercises, onExerciseSelected, onAddWorkout}) => {
+export const ExerciseListView = ({selectedExercises, onExerciseSelected, onAddWorkout, onBackButtonClick}) => {
     const [isLoading, setIsLoading] = useState(false);
     const [exerciseList, setExerciseList] = useState([]);    
 
@@ -52,6 +52,7 @@ export const ExerciseListView = ({selectedExercises, onExerciseSelected, onAddWo
             {isLoading && <LoadingView></LoadingView>}
             {exerciseList.length && 
             <div>
+                <button onClick={onBackButtonClick}>Back</button>   
                 <h1>Exercise List</h1>
                 <ExerciseList selectedExercises={selectedExercises} exerciseList={exerciseList} onExerciseSelected={(exercise) => onExerciseSelected(exercise)} />
                 <FixedButton 
