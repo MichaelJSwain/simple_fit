@@ -1,10 +1,10 @@
 import axios from "axios";
-import { useEffect, useRef, useState } from "react"
+import { useContext, useEffect, useRef, useState } from "react"
 import LoadingView from "./LoadingView";
 import FixedButton from "./FixedButton";
 import { ExerciseListView } from "./ExerciseListView";
 import { WorkoutBuilderConfirmationView } from "./WorkoutBuilderConfirmationView";
-
+import { AuthContext } from "../AuthContextProvider";
 
 export const WorkoutBuilderView = ({toggleModal}) => {
     const [isShowingExerciseListView, setIsShowingExerciseListView] = useState(true);
@@ -14,6 +14,8 @@ export const WorkoutBuilderView = ({toggleModal}) => {
     const [isShowingErrorMessage, setIsShowingErrorMessage] = useState(false);
     const [selectedExercises, setSelectedExercises] = useState([]);
     const [workout, setWorkout] = useState([]);
+
+    const authContext = useContext(AuthContext);
 
     const handleExerciseSelected = (selectedExercise) => {
         console.log("selected exercise = ", selectedExercise);
@@ -47,6 +49,7 @@ export const WorkoutBuilderView = ({toggleModal}) => {
         setIsLoading(true)
         axios.post('http://localhost:8080/exerciseApp/api/workouts', {
             workout: {
+                user_id: authContext.user._id,
                 name: workoutName,
                 exercises: selectedExercises
             }
