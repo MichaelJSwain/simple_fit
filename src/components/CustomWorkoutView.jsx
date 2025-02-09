@@ -10,6 +10,12 @@ export const CustomWorkoutView = ({onCreateWorkoutClick, toggleModal}) => {
 
     const {user} = useContext(AuthContext);
     console.log(user);
+
+    const handleEndWorkout = () => {
+        setIsWorkoutActive(false)
+        setIsShowingCustomWorkoutDetailView(true)
+    }
+
     return (
         <>
             {(!isShowingCustomWorkoutDetailView && !isWorkoutActive) && 
@@ -43,7 +49,7 @@ export const CustomWorkoutView = ({onCreateWorkoutClick, toggleModal}) => {
             }
 
             {isWorkoutActive && 
-                <WorkoutActiveView workout={selectedWorkout} handleWorkoutCancel={() => setIsWorkoutActive(false)}/>
+                <WorkoutActiveView workout={selectedWorkout} handleWorkoutCancel={() => setIsWorkoutActive(false)} handleEndWorkout={handleEndWorkout}/>
             }
         </>
     )
