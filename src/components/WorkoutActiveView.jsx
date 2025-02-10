@@ -18,7 +18,7 @@ const WorkoutActiveView = ({workout, handleWorkoutCancel, handleEndWorkout}) => 
     const handleWorkoutComplete = () => {
         axios.post("http://localhost:8080/exerciseApp/api/workouts/completed", {
             userId: authContext.user._id,
-            workoutId: workout._id
+            workout: workout
         })
         .then(() => {
             console.log("persisted workout completion");
