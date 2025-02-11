@@ -7,9 +7,11 @@ import ActiveFilters from "./ActiveFilters";
 import FixedButton from "./FixedButton";
 import Modal from "./Modal";
 import WorkoutFiltersDrawer from "./WorkoutFiltersDrawer";
+import { WorkoutBuilderView } from "./WorkoutBuilderView";
 
 const WorkoutListView = () => {
-    const [modalActive, setModalActive] = useState(false); 
+    const [filterModalActive, setfilterModalActive] = useState(false); 
+    const [workoutBuilderModalActive, setWorkoutBuilderModalActive] = useState(false);
     const [workoutList, setWorkoutList] = useState([]);
     const [filtersApplied, setFiltersApplied] = useState([]);
     const [filteredWorkouts, setFilteredWorkouts] = useState([]);
@@ -99,24 +101,28 @@ const WorkoutListView = () => {
 
             {!!filtersApplied && <ActiveFilters filters={filtersApplied} handleFilter={handleFilter} />}
 
-            <button className="Button-Secondary" onClick={() => setModalActive(!modalActive)}>Filter</button>
-            
+            <button className="Button-Secondary" onClick={() => setfilterModalActive(!filterModalActive)}>Filter</button>
+            <button className="Button-Secondary" onClick={() => setWorkoutBuilderModalActive(!workoutBuilderModalActive)}>Create Workout</button>
+
             {isLoading && <LoadingView/>}
             {filteredWorkouts.length ? 
                 <WorkoutList workoutList={filteredWorkouts} filters={filtersApplied}/> : 
                 <NoResults />
             }
             </div>
-            <Modal modalActive={modalActive}>
+            <Modal modalActive={filterModalActive}>
                 <WorkoutFiltersDrawer 
                     filtersApplied={filtersApplied} 
                     handleResetFilters={() => setFiltersApplied([])} 
                     filterFunc={handleFilter}
                 />
                 <FixedButton 
-                    clickFunc={() => setModalActive(!modalActive)} 
+                    clickFunc={() => setfilterModalActive(!filterModalActive)} 
                     text={`See ${filteredWorkouts.length} results`}
                 />
+            </Modal>
+            <Modal modalActive={workoutBuilderModalActive}>
+                <WorkoutBuilderView toggleModal={() => setWorkoutBuilderModalActive(!workoutBuilderModalActive)} />
             </Modal>
         </div>
     )

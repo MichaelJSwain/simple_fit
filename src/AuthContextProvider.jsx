@@ -5,6 +5,7 @@ export const AuthContext = createContext();
 
 const AuthContextProvider = ({children}) => {
     const [user, setUser] = useState(false);
+    console.log(user);
 
     const login = (email, password, handleError) => {
         console.log("logging in via auth context");

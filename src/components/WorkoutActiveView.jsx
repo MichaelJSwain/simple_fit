@@ -6,7 +6,7 @@ import Timer from "./Timer";
 import axios from "axios";
 import { AuthContext } from "../AuthContextProvider";
 
-const WorkoutActiveView = ({workout, handleWorkoutCancel}) => {
+const WorkoutActiveView = ({workout, handleWorkoutCancel, handleEndWorkout}) => {
     const {current: trainingSet} = useRef(workout.trainingSet);
     const [currentExercise, setCurrentExercise] = useState(0);
     const [showingCountdown, setShowingCountdown] = useState(true);
@@ -18,7 +18,7 @@ const WorkoutActiveView = ({workout, handleWorkoutCancel}) => {
     const handleWorkoutComplete = () => {
         axios.post("http://localhost:8080/exerciseApp/api/workouts/completed", {
             userId: authContext.user._id,
-            workoutId: workout._id
+            workout: workout
         })
         .then(() => {
             console.log("persisted workout completion");
@@ -71,7 +71,7 @@ const WorkoutActiveView = ({workout, handleWorkoutCancel}) => {
                 </div>
             )}
             {
-                isCompleted && <WorkoutCompletedView clickFunc={endWorkout} workout={workout}/>
+                isCompleted && <WorkoutCompletedView clickFunc={handleEndWorkout} workout={workout}/>
             }
         </>
     )

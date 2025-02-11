@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useContext, useEffect, useRef, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import LoadingView from "./LoadingView";
 import WorkoutActiveView from "./WorkoutActiveView";
 import { AuthContext } from "../AuthContextProvider";
@@ -15,6 +15,7 @@ const WorkoutDetailView= () => {
     const [isFavourited, setIsFavourited] = useState();
     const authContext = useContext(AuthContext);
     const workoutDetailsRef = useRef();
+    const navigate = useNavigate();
 
     const {id} = useParams();
     console.log("params = ", id);
@@ -75,6 +76,10 @@ const WorkoutDetailView= () => {
         })
     }
 
+    const handleEndWorkout = () => {
+        navigate("/")
+    }
+
     return (
         <>
             
@@ -123,7 +128,7 @@ const WorkoutDetailView= () => {
                 </div>
             )}
             {(workout && workoutActive) && (
-                <WorkoutActiveView workout={workout} handleWorkoutCancel={() => setWorkoutActive(false)} />
+                <WorkoutActiveView workout={workout} handleWorkoutCancel={() => setWorkoutActive(false)} handleEndWorkout={handleEndWorkout} />
             )}
         </>
     )
