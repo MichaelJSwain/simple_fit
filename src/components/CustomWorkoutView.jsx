@@ -21,7 +21,7 @@ export const CustomWorkoutView = ({onCreateWorkoutClick, toggleModal}) => {
             {(!isShowingCustomWorkoutDetailView && !isWorkoutActive) && 
             <>
             <button onClick={toggleModal}>Close</button>
-                            <h1>custom workout view</h1>
+                            <h1>My Workouts</h1>
             {user.customWorkouts.map(workout => {
                 return <p onClick={() => {
                     setIsShowingCustomWorkoutDetailView(true)
