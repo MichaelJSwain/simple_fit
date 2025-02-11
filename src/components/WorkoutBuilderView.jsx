@@ -14,28 +14,13 @@ export const WorkoutBuilderView = ({toggleModal}) => {
     const [isLoading, setIsLoading] = useState(false);
     const [isShowingSuccessMessage, setIsShowingSuccessMessage] = useState(false);
     const [isShowingErrorMessage, setIsShowingErrorMessage] = useState(false);
-    const [selectedExercises, setSelectedExercises] = useState([]);
     const [workout, setWorkout] = useState([]);
 
     const authContext = useContext(AuthContext);
 
-    const handleExerciseSelected = (selectedExercise) => {
-        console.log("selected exercise = ", selectedExercise);
-        if (selectedExercises.length) {
-            let filtered = selectedExercises.filter(exercise => exercise._id != selectedExercise._id);
-            if (filtered.length === selectedExercises.length) {
-                setSelectedExercises([...selectedExercises, selectedExercise]);
-            } else {
-                setSelectedExercises(filtered);
-            }
-        } else {
-            setSelectedExercises([...selectedExercises, selectedExercise]);
-        }
-    }
-
     const handleAddWorkout = (selectedExercises) => {
         console.log(selectedExercises);
-        setWorkout(selectedExercises);
+        setWorkout([...workout, ...selectedExercises]);
         setIsShowingExerciseListView(false);
         setIsShowingConfirmationView(true);
     }
@@ -53,7 +38,7 @@ export const WorkoutBuilderView = ({toggleModal}) => {
             workout: {
                 user_id: authContext.user._id,
                 name: workoutName,
-                exercises: selectedExercises
+                exercises: workout
             }
           })
           .then(function (response) {
@@ -93,11 +78,11 @@ export const WorkoutBuilderView = ({toggleModal}) => {
                     </>}
                     {!isLoading && <>
                                
-                        {isShowingExerciseListView && <ExerciseListView selectedExercises={selectedExercises} onExerciseSelected={(exercise) => handleExerciseSelected(exercise)} onAddWorkout={(selectedExercises) => handleAddWorkout(selectedExercises)} onBackButtonClick={() => {
+                        {isShowingExerciseListView && <ExerciseListView onAddWorkout={(selectedExercises) => handleAddWorkout(selectedExercises)} onBackButtonClick={() => {
                                             setIsShowingCustomWorkoutView(true);
                                             setIsShowingExerciseListView(false);
                                         }}></ExerciseListView>}
-                        {isShowingConfirmationView && <WorkoutBuilderConfirmationView onSaveWorkout={handleSaveWorkout} clickFunc={handleBackToExerciseList} exerciseList={selectedExercises}></WorkoutBuilderConfirmationView>}          
+                        {isShowingConfirmationView && <WorkoutBuilderConfirmationView onSaveWorkout={handleSaveWorkout} clickFunc={handleBackToExerciseList} exerciseList={workout}></WorkoutBuilderConfirmationView>}          
                     </>}
                 </>}
 

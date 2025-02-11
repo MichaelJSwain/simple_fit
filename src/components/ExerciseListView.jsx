@@ -4,9 +4,10 @@ import LoadingView from "./LoadingView";
 import { ExerciseList } from "./ExerciseList";
 import FixedButton from "./FixedButton";
 
-export const ExerciseListView = ({selectedExercises, onExerciseSelected, onAddWorkout, onBackButtonClick}) => {
+export const ExerciseListView = ({onAddWorkout, onBackButtonClick}) => {
     const [isLoading, setIsLoading] = useState(false);
-    const [exerciseList, setExerciseList] = useState([]);    
+    const [exerciseList, setExerciseList] = useState([]);
+    const [selectedExercises, setSelectedExercises] = useState([]);
 
     const fetchExercises = async () => {
         setIsLoading(true);
@@ -26,23 +27,24 @@ export const ExerciseListView = ({selectedExercises, onExerciseSelected, onAddWo
         fetchExercises();
     }, []);
 
-    // const handleExerciseSelected = (selectedExercise) => {
-    //     console.log("selected exercise = ", selectedExercise);
-    //     if (selectedExercises.length) {
-    //         let filtered = selectedExercises.filter(exercise => exercise._id != selectedExercise._id);
-    //         if (filtered.length === selectedExercises.length) {
-    //             setSelectedExercises([...selectedExercises, selectedExercise]);
-    //         } else {
-    //             setSelectedExercises(filtered);
-    //         }
-    //     } else {
-    //         setSelectedExercises([...selectedExercises, selectedExercise]);
-    //     }
-    // }
+    const handleExerciseSelected = (selectedExercise) => {
+        console.log("selected exercise = ", selectedExercise);
+        if (selectedExercises.length) {
+            let filtered = selectedExercises.filter(exercise => exercise._id != selectedExercise._id);
+            if (filtered.length === selectedExercises.length) {
+                setSelectedExercises([...selectedExercises, selectedExercise]);
+            } else {
+                setSelectedExercises(filtered);
+            }
+        } else {
+            setSelectedExercises([...selectedExercises, selectedExercise]);
+        }
+    }
 
     const handleButtonClick = () => {
         console.log("handling button click");
         if (selectedExercises.length) {
+            console.log("adding selected exercises = ", selectedExercises);
             onAddWorkout(selectedExercises);
         }
     }
@@ -54,7 +56,7 @@ export const ExerciseListView = ({selectedExercises, onExerciseSelected, onAddWo
             <div>
                 <button onClick={onBackButtonClick}>Back</button>   
                 <h1>Exercise List</h1>
-                <ExerciseList selectedExercises={selectedExercises} exerciseList={exerciseList} onExerciseSelected={(exercise) => onExerciseSelected(exercise)} />
+                <ExerciseList selectedExercises={selectedExercises} exerciseList={exerciseList} onExerciseSelected={(exercise) => handleExerciseSelected(exercise)} />
                 <FixedButton 
                     clickFunc={handleButtonClick} 
                     text={selectedExercises.length ? `Add ${selectedExercises.length} exercises` : "Add exercises"}

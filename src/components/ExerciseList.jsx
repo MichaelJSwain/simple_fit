@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react"
+import { ExerciseListItem } from "./ExerciseListItem";
 
 export const ExerciseList = ({selectedExercises, exerciseList, onExerciseSelected}) => {
     const [searchValue, setSearchValue] = useState("");
     const [filteredExercises, setFilteredExercises] = useState(exerciseList);
-
+    
     const handleChange = (e) => {
-        setSearchValue(e.target.value);
+        setSearchValue(e.target.value);  
     }
 
     const handleSearchFilter = () => {
@@ -19,7 +20,8 @@ export const ExerciseList = ({selectedExercises, exerciseList, onExerciseSelecte
         <div>
             <input placeholder="search" style={{borderRadius: "30px", padding: "15px 25px", width: "80%"}} value={searchValue} onChange={handleChange}></input>
             {filteredExercises.length ? filteredExercises.map(exercise => {
-                return <div key={exercise._id} onClick={() => onExerciseSelected(exercise)}>{exercise.name}</div>
+                return <ExerciseListItem key={exercise._id} item={exercise} onExerciseSelected={() => onExerciseSelected(exercise)}/>
+                // return <div key={exercise._id} onClick={() => onExerciseSelected(exercise)}>{exercise.name}</div>
             }) : <div>Sorry, there were no results found. Try another search term!</div>}
         </div>
     )
