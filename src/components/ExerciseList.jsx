@@ -2,7 +2,7 @@ import { ExerciseListItem } from "./ExerciseListItem";
 
 export const ExerciseList = ({exerciseList, onExerciseSelected}) => {
     return (
-        <div>
+        <div style={{margin: "20px"}}>
             {exerciseList.length ? exerciseList.map(exercise => {
                 return <ExerciseListItem 
                             classes={exercise.isSelected ? "itemSelected list-item" : "list-item"} 

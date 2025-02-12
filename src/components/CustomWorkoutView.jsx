@@ -23,10 +23,17 @@ export const CustomWorkoutView = ({onCreateWorkoutClick, toggleModal}) => {
             <button onClick={toggleModal}>Close</button>
                             <h1>My Workouts</h1>
             {user.customWorkouts.map(workout => {
-                return <p onClick={() => {
+                return <div style={{
+                    padding: "20px",
+                    background: "grey",
+                    margin: "20px",
+                    color: "white",
+                    fontWeight: "bold"
+                }}
+                onClick={() => {
                     setIsShowingCustomWorkoutDetailView(true)
                     setSelectedWorkout(workout)
-                }} key={workout._id}>{workout.name || "custom workout"}</p>
+                }} key={workout._id}>{workout.name || "custom workout"}</div>
             })}
             <FixedButton clickFunc={onCreateWorkoutClick} text="Create workout"/>
             </>}
